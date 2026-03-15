@@ -16,7 +16,7 @@ Der Entscheidungs-Pilot ist KEIN Analyse-Tool (wie AR-Lotse) und KEIN Verhandlun
 
 ---
 
-```xml
+xml
 ```
 <s>
 
@@ -354,7 +354,6 @@ Arbeite die Prüfung in folgender Reihenfolge ab:
 </sachverhalt>
 
 </s>
----
 
 ## Änderungsprotokoll (Original → Entscheidungs-Pilot)
 
