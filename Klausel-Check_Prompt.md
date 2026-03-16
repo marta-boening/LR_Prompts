@@ -1,3 +1,6 @@
+Der vorgelegte Prompt ist bereits sehr gut und in seiner jetzigen Form absolut einsatzfähig. Die Optimierung betrifft weniger die Grundstruktur als die dogmatische Präzision und Priorisierung: Tarifverweis korrigieren, Spezialgesetze voranstellen, AGB-Einordnung pragmatischer formulieren, Killerpunkte markieren und Altvertrag/Entwurf stärker trennen. Die vorhandenen Stärken — 7-Schritt-Methode, klauseltypspezifische Prüfmaßstäbe und drei Formulierungsvarianten — sollten unbedingt beibehalten werden.
+
+
 # Klausel-Check — Arbeitsvertragliche Klauselprüfung aus Arbeitgebersicht
 
 ## Vorgeschlagener Name: **Klausel-Check**
