@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Labour Relations Prompt-Bibliothek</title>
+<style>
+:root{
+  --bg:#fff;--bg2:#f7f7f6;--bg3:#f0efe9;
+  --txt:#1a1a18;--txt2:#5a5a56;--txt3:#8a8a85;
+  --border:#e0dfd8;--border2:#c8c7bf;
+  --r8:8px;--r12:12px;--r16:16px;
+  --blue-bg:#e6f1fb;--blue-fg:#185fa5;
+  --amber-bg:#faeeda;--amber-fg:#854f0b;
+  --green-bg:#eaf3de;--green-fg:#3b6d11;
+  --red-bg:#fcebeb;--red-fg:#a32d2d;
+  --purple-bg:#eeedfe;--purple-fg:#534ab7;
+  --coral-bg:#faece7;--coral-fg:#993c1d;
+  --teal-bg:#e1f5ee;--teal-fg:#0f6e56;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg3);color:var(--txt);font-size:15px;line-height:1.7;}
+a{color:inherit;text-decoration:none;}
+
+/* NAV */
+.topnav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 2rem;}
+.topnav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:1rem;}
+.logo{font-size:14px;font-weight:500;color:var(--txt);}
+.logo span{color:var(--txt3);font-weight:400;}
+.navlinks{display:flex;gap:0;overflow-x:auto;}
+.navlinks a{font-size:12px;color:var(--txt2);padding:0 12px;height:52px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;}
+.navlinks a:hover{color:var(--txt);border-bottom-color:var(--border2);}
+
+/* LAYOUT */
+.page{max-width:1100px;margin:0 auto;padding:2rem 2rem 4rem;}
+
+/* HERO */
+.hero{background:var(--bg);border:1px solid var(--border);border-radius:var(--r16);padding:2rem 2.5rem;margin-bottom:2rem;}
+.hero h1{font-size:22px;font-weight:500;margin-bottom:.5rem;}
+.hero p{font-size:14px;color:var(--txt2);max-width:680px;line-height:1.7;}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:1rem;}
+.tag{font-size:11px;padding:3px 10px;border-radius:99px;border:1px solid var(--border);color:var(--txt2);}
+
+/* NAVIGATOR */
+.section-label{font-size:11px;font-weight:500;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+.nav-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--r16);padding:1.5rem 2rem;margin-bottom:2rem;}
+
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem;}
+.chip{font-size:12px;font-weight:500;padding:5px 14px;border-radius:99px;border:1px solid var(--border2);background:transparent;color:var(--txt2);cursor:pointer;transition:all .1s;}
+.chip:hover{background:var(--bg2);color:var(--txt);}
+.chip.on{background:var(--txt);color:var(--bg);border-color:var(--txt);}
+
+/* QUICK START */
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:1.5rem;}
+.qcard{border:1px solid var(--border);border-radius:var(--r12);padding:10px 14px;cursor:pointer;background:var(--bg2);transition:border-color .1s;display:flex;align-items:flex-start;gap:10px;}
+.qcard:hover{border-color:var(--border2);background:var(--bg);}
+.qicon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;}
+.qcard-text p:first-child{font-size:13px;font-weight:500;color:var(--txt);line-height:1.3;}
+.qcard-text p:last-child{font-size:11px;color:var(--txt3);margin-top:2px;}
+
+/* PROMPT GRID */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:10px;}
+.pcard{background:var(--bg);border:1px solid var(--border);border-radius:var(--r12);padding:14px 16px;display:flex;flex-direction:column;gap:8px;transition:border-color .12s;text-decoration:none;}
+.pcard:hover{border-color:var(--border2);}
+.pcard-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.pcard-name{font-size:14px;font-weight:500;color:var(--txt);line-height:1.3;}
+.bdg{font-size:10px;font-weight:500;padding:2px 8px;border-radius:99px;white-space:nowrap;flex-shrink:0;}
+.pcard-q{font-size:12px;color:var(--txt2);font-style:italic;line-height:1.4;}
+.pcard-d{font-size:12px;color:var(--txt3);line-height:1.5;}
+.pcard-foot{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border);margin-top:2px;}
+.pcard-aud{font-size:11px;color:var(--txt3);}
+.dep-tag{font-size:10px;padding:2px 7px;border-radius:99px;border:1px solid var(--border);color:var(--txt3);}
+.cnt-label{font-size:12px;color:var(--txt3);margin-bottom:.5rem;}
+
+/* PROMPT DETAIL SECTIONS */
+.detail-section{margin-top:3rem;}
+.detail-section h2{font-size:18px;font-weight:500;margin-bottom:.25rem;padding-top:3rem;}
+.detail-section .section-sub{font-size:13px;color:var(--txt2);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+.prompt-detail{background:var(--bg);border:1px solid var(--border);border-radius:var(--r16);padding:1.75rem 2rem;margin-bottom:1.5rem;scroll-margin-top:70px;}
+.prompt-detail h3{font-size:16px;font-weight:500;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem;}
+.prompt-detail .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1rem;}
+.prompt-detail .desc{font-size:14px;color:var(--txt2);line-height:1.7;margin-bottom:1rem;}
+.detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:1rem;}
+.detail-item{background:var(--bg2);border-radius:var(--r8);padding:10px 14px;}
+.detail-item .di-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.4px;color:var(--txt3);margin-bottom:4px;}
+.detail-item .di-val{font-size:13px;color:var(--txt);line-height:1.4;}
+.steps-list{list-style:none;display:flex;flex-direction:column;gap:4px;margin-top:.75rem;}
+.steps-list li{font-size:12px;color:var(--txt2);padding:5px 10px;background:var(--bg2);border-radius:var(--r8);display:flex;align-items:center;gap:6px;}
+.steps-list li::before{content:'';width:14px;height:14px;border-radius:50%;background:var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;}
+.routing-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem;}
+.routing-chip{font-size:11px;padding:3px 10px;border-radius:99px;border:1px solid var(--border);color:var(--txt2);background:var(--bg2);}
+.divider{height:1px;background:var(--border);margin:2.5rem 0;}
+
+/* BACK TO TOP */
+.backtop{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--txt3);padding:5px 10px;border:1px solid var(--border);border-radius:99px;margin-top:1rem;cursor:pointer;}
+.backtop:hover{color:var(--txt);border-color:var(--border2);}
+
+/* PRINT */
+@media print{
+  .topnav,.navlinks,.chip-row,.qgrid,.nav-box .chip-row{display:none;}
+  .prompt-detail{break-inside:avoid;page-break-inside:avoid;}
+}
+
+@media(max-width:640px){
+  .page{padding:1rem 1rem 3rem;}
+  .hero{padding:1.25rem 1.25rem;}
+  .nav-box{padding:1rem 1.25rem;}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="logo">Labour Relations <span>Prompt-Bibliothek</span></div>
+    <div class="navlinks">
+      <a href="#navigator">Navigator</a>
+      <a href="#schnell">Schnellchecks</a>
+      <a href="#kuendigung">Kündigung & Abmahnung</a>
+      <a href="#versetzung">Versetzung & Befristung</a>
+      <a href="#mitbestimmung">Mitbestimmung</a>
+      <a href="#verguetung">Vergütung & Verträge</a>
+      <a href="#prozess">Streit & Prozess</a>
+      <a href="#analyse">Vollanalyse</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Labour Relations Prompt-Bibliothek</h1>
+  <p>22 spezialisierte Analyse-Prompts für das deutsche Arbeitsrecht auf Arbeitgeberseite. Von der schnellen Risikoeinschätzung bis zur vollständigen juristischen Fallanalyse — jeder Prompt ist für einen spezifischen Anwendungsfall optimiert.</p>
+  <div class="tag-row">
+    <span class="tag">Individualarbeitsrecht</span>
+    <span class="tag">Kollektivarbeitsrecht</span>
+    <span class="tag">Mitbestimmung BetrVG</span>
+    <span class="tag">Kündigungsschutz KSchG</span>
+    <span class="tag">Arbeitgeberperspektive</span>
+    <span class="tag">22 Prompts</span>
+  </div>
+</div>
+
+<!-- INTERACTIVE NAVIGATOR -->
+<div id="navigator" class="nav-box">
+  <div class="section-label">Interaktiver Prompt-Navigator</div>
+  <p style="font-size:13px;color:var(--txt2);margin-bottom:1.25rem;line-height:1.6;">Schnelleinstieg über typische Szenarien oder manuell nach Kategorie und Tiefe filtern. Klicke auf eine Karte, um zum Prompt-Steckbrief zu springen.</p>
+
+  <!-- QUICK START -->
+  <div class="section-label" style="margin-bottom:.6rem;">Schnelleinstieg — häufige Szenarien</div>
+  <div class="qgrid" id="qstart"></div>
+
+  <!-- FILTER -->
+  <div class="section-label">Kategorie</div>
+  <div class="chip-row" id="catf"></div>
+  <div class="section-label" style="margin-top:.75rem;">Tiefe</div>
+  <div class="chip-row" id="depf"></div>
+
+  <div class="cnt-label" id="cnt" style="margin-top:1rem;"></div>
+  <div class="pgrid" id="pgrid"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PROMPT DETAIL SECTIONS
+═══════════════════════════════════════ -->
+
+<!-- SCHNELLCHECKS -->
+<div id="schnell" class="detail-section">
+  <h2>Schnellchecks</h2>
+  <p class="section-sub">Kompakte Ersteinschätzungen für die schnelle Orientierung vor einem Meeting oder Entscheidungsgespräch. Ausgabe: max. 2 Seiten, Go/No-Go-Empfehlung.</p>
+
+  <div id="detail-risiko-radar" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--amber-bg);color:var(--amber-fg);">Schnellcheck</span>
+      Risiko-Radar
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Schnellcheck</span>
+      <span class="dep-tag">Adressat: LR / HR</span>
+    </div>
+    <p class="desc">Der Risiko-Radar liefert eine fokussierte Risikobewertung einer geplanten Arbeitgebermaßnahme. Keine vollständige Fallanalyse — sondern eine Risikomatrix mit Eintrittswahrscheinlichkeit, Normbasis, typischen Gegenargumenten und priorisierten Handlungsempfehlungen.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Wie riskant ist diese Maßnahme?"</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Risikomatrix (🔴🟡🟢) + priorisierte Empfehlungen + offene Punkte</div></div>
+      <div class="detail-item"><div class="di-label">Methode</div><div class="di-val">4 Schritte: Erfassen → Risiken je 3 Dimensionen → Matrix → Empfehlungen</div></div>
+      <div class="detail-item"><div class="di-label">Wann nutzen</div><div class="di-val">Erste Orientierung vor jeder Maßnahme. Nicht für Vollprüfung.</div></div>
+    </div>
+    <div style="margin-top:1rem;"><div class="di-label">Risikodimensionen je Punkt</div>
+      <ul class="steps-list">
+        <li>Eintrittswahrscheinlichkeit (Anfechtung, Klage, einstweilige Verfügung)</li>
+        <li>Rechtliche Angriffspunkte (Normen, Formfehler, Verfahrensverstöße)</li>
+        <li>Typische Gegenargumente (AN/RA, Betriebsrat, Arbeitsgericht)</li>
+      </ul>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-quick-check" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--amber-bg);color:var(--amber-fg);">Schnellcheck</span>
+      Quick-Check
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Schnellcheck</span>
+      <span class="dep-tag">Adressat: HR / FK / LR</span>
+    </div>
+    <p class="desc">Kompakte Zulässigkeitsprüfung einer geplanten Maßnahme. Prüft Rechtsgrundlage, Zulässigkeitsvoraussetzungen, Mitbestimmung und Datenschutzrelevanz — und liefert ein Go/No-Go innerhalb von maximal 2 Seiten. Vertiefung erfolgt je nach Befund durch Verweis auf den passenden Spezial-Prompt.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Geht das so?"</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Ampelübersicht + Go/No-Go + Handlungsbedarf (zwingend vs. empfohlen)</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Weniger tief als Maßnahmen-Architekt. Mehr auf Ersteinschätzung fokussiert.</div></div>
+      <div class="detail-item"><div class="di-label">Wann nutzen</div><div class="di-val">Schnelle Einschätzung vor dem Meeting. Einstieg vor Spezial-Prompt.</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-br-check" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--amber-bg);color:var(--amber-fg);">Schnellcheck</span>
+      BR-Check
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Schnellcheck</span>
+      <span class="dep-tag">Adressat: LR</span>
+    </div>
+    <p class="desc">Kompakte Mitbestimmungslandkarte auf einen Blick. Beantwortet die Frage „Greift Mitbestimmung — ja oder nein?" mit klarem Positiv- und Negativ-Check. Zeigt, was der AG OHNE BR tun darf. Weniger tief als der BR-Kompass v2, dafür in 1–2 Seiten ergebnisorientiert.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Greift Mitbestimmung — schnell?"</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Mitbestimmungslandkarte + Ampel + Handlungsbedarf</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Einordnung ob/nicht — Reichweite und Verhandlung → BR-Kompass v2</div></div>
+      <div class="detail-item"><div class="di-label">Wann nutzen</div><div class="di-val">„Muss ich den BR beteiligen?" — schnelle Antwort gesucht.</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-versetzungs-check" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--amber-bg);color:var(--amber-fg);">Schnellcheck</span>
+      Versetzungs-Check v2
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Schnellcheck</span>
+      <span class="dep-tag">Adressat: HR / FK</span>
+    </div>
+    <p class="desc">Ersteinschätzung einer geplanten Versetzung mit vierstufiger Risikokategorisierung (Kategorie I–IV). Prüft Direktionsrecht, vertragliche Deckung, billiges Ermessen und BR-Beteiligung kompakt. Jede Kategorie enthält eine direkte Handlungsempfehlung und Routing zum passenden Spezial-Prompt.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Versetzen — geht das?"</div></div>
+      <div class="detail-item"><div class="di-label">Risikokategorien</div><div class="di-val">I: Gut vertretbar · II: Erhöhtes Risiko · III: Nur mit Einvernehmen · IV: Nicht tragfähig</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Änderungstableau + Ampel + Risikokategorie + Handlungsbedarf</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Ersteinschätzung — Vollprüfung → Versetzungs-Navigator</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-entscheidungspilot-kurz" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--amber-bg);color:var(--amber-fg);">Schnellcheck</span>
+      Entscheidungs-Pilot (Kurzformat)
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Schnellcheck</span>
+      <span class="dep-tag">Adressat: HR / Mgmt</span>
+    </div>
+    <p class="desc">Verdichtete Entscheidungsvorlage für HR, Legal und Management. Prüft Optionen mit klarer Priorisierung, Go/No-Go und konkreten nächsten Schritten. Geeignet für den täglichen Einsatz ohne langen juristischen Unterbau.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Welche Option — schnell?"</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Kurzfazit + Optionen (🟢🟡🔴) + Vergleich + Empfehlung + Nächste Schritte</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Weniger tief als Entscheidungs-Pilot (lang). Für schnelle Entscheidungsrunden.</div></div>
+      <div class="detail-item"><div class="di-label">Wann nutzen</div><div class="di-val">Vorbereitung GF-Gespräch, kurzfristige Entscheidung unter Zeitdruck.</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-prozess-lotse-kurz" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--amber-bg);color:var(--amber-fg);">Schnellcheck</span>
+      Prozess-Lotse (Kurzformat)
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Schnellcheck</span>
+      <span class="dep-tag">Adressat: Legal / HR</span>
+    </div>
+    <p class="desc">Prozessuale Ersteinschätzung vor einem Güte- oder Kammertermin. Liefert Prozesstaktik statt Vollanalyse: Ampel, Beweislage, Angriffs- und Verteidigungslinien, Szenarien und Terminstrategie.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Prozesstaktik — jetzt sofort?"</div></div>
+      <div class="detail-item"><div class="di-label">Wann nutzen</div><div class="di-val">Kurzfristig vor Güte- oder Kammertermin.</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Weniger tief als Prozess-Lotse (lang). Hochkomplexe Fälle → Langversion.</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Ampel + Beweislage + 3 Szenarien + Terminstrategie + Management Takeaway</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- KÜNDIGUNG & ABMAHNUNG -->
+<div id="kuendigung" class="detail-section">
+  <h2>Kündigung &amp; Abmahnung</h2>
+  <p class="section-sub">Spezial-Prompts für die Vorbereitung und Absicherung von Kündigungen und Abmahnungen — von der Entscheidungsprüfung bis zum Musterentwurf.</p>
+
+  <div id="detail-kuendigungs-pruefer" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--red-bg);color:var(--red-fg);">Kündigung</span>
+      Kündigungs-Prüfer
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: HR / Legal / GF</span>
+    </div>
+    <p class="desc">Systematische Prüfung einer beabsichtigten Kündigung in 10 Schritten. Bestimmt Kündigungsart, prüft KSchG-Anwendbarkeit, Kündigungsgrund, Verhältnismäßigkeit, Sonderkündigungsschutz, BR-Anhörung (§ 102 BetrVG) und alle relevanten Fristen. Optional: Muster-Kündigungsschreiben.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Können wir kündigen — und wie?"</div></div>
+      <div class="detail-item"><div class="di-label">Kündigungsarten</div><div class="di-val">Ordentlich · Außerordentlich · Außerordentlich mit Auslauffrist · Verdachtskündigung</div></div>
+      <div class="detail-item"><div class="di-label">Pflichtprüfungen</div><div class="di-val">KSchG, Sonderkündigungsschutz (10 Kategorien), BR-Anhörung, Sozialauswahl, 2-Wochen-Frist</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Risikoampel + Prüfung + Prozessrisiko + Empfehlung + Fristentableau + Checkliste</div></div>
+    </div>
+    <div style="margin-top:1rem;"><div class="di-label">10-Schritt-Methode</div>
+      <ul class="steps-list">
+        <li>Sachverhalt und Kündigungsanlass erfassen</li>
+        <li>Kündigungsart bestimmen (Entscheidungsbaum)</li>
+        <li>KSchG-Anwendbarkeit prüfen (§ 23)</li>
+        <li>Kündigungsgrund prüfen (verhaltens-/personen-/betriebsbedingt/Verdacht)</li>
+        <li>Verhältnismäßigkeit / Ultima Ratio</li>
+        <li>Sonderkündigungsschutz (SGB IX, MuSchG, BEEG, BetrVG etc.)</li>
+        <li>BR-Anhörung § 102 BetrVG (häufigster Fehler!)</li>
+        <li>Fristen prüfen (Fristentableau)</li>
+        <li>Prozessrisiko bewerten</li>
+        <li>Empfehlung und Umsetzungsplan</li>
+      </ul>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-abmahnungs-assistent" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--red-bg);color:var(--red-fg);">Kündigung</span>
+      Abmahnungs-Assistent
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: HR / FK</span>
+    </div>
+    <p class="desc">Entscheidungsreife Prüfung einer beabsichtigten Abmahnung als arbeitsrechtliches Steuerungsinstrument. Klärt, ob abgemahnt werden sollte, welches Instrument passt und wie die Abmahnung formuliert sein muss, damit sie hält — und als Fundament für eine spätere Kündigung trägt.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Abmahnung oder nicht — und wie?"</div></div>
+      <div class="detail-item"><div class="di-label">Instrumentenwahl</div><div class="di-val">A: Abmahnung · B: Ermahnung · C: Entbehrlich (direkt kündigen) · D: Gespräch ohne Schriftmaßnahme</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Arbeitet VOR einer Kündigung. Dokumentationsbrücke zur späteren Kündigung.</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Risikoampel (10 Prüfpunkte) + Eskalationsschema + Red Flags + opt. Muster-Abmahnung</div></div>
+    </div>
+    <div style="margin-top:1rem;"><div class="di-label">Eskalationsschema (Positionierung)</div>
+      <ul class="steps-list">
+        <li>Stufe 1: Mündliches Gespräch / Ermahnung</li>
+        <li>Stufe 2: Schriftliche Ermahnung</li>
+        <li>Stufe 3: 1. Abmahnung</li>
+        <li>Stufe 4: 2. Abmahnung (gleichartiger Verstoß)</li>
+        <li>Stufe 5: Kündigung → Kündigungs-Prüfer</li>
+      </ul>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- VERSETZUNG & BEFRISTUNG -->
+<div id="versetzung" class="detail-section">
+  <h2>Versetzung &amp; Befristung</h2>
+  <p class="section-sub">Spezial-Prompts für die Vorbereitung und Absicherung von Versetzungen und befristeten Arbeitsverhältnissen.</p>
+
+  <div id="detail-versetzungs-navigator" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--blue-bg);color:var(--blue-fg);">Versetzung</span>
+      Versetzungs-Navigator
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: HR / LR / Legal</span>
+    </div>
+    <p class="desc">Vollständige Prüfung und Absicherung einer geplanten Versetzung in 8 Schritten. Prüft Direktionsrecht (§ 106 GewO), Konkretisierungslehre, billiges Ermessen, Gleichwertigkeit, BR-Beteiligung (§§ 99, 100 BetrVG) und liefert einen vollständigen Optionenvergleich (A–D) mit Umsetzungsfahrplan.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Dürfen wir versetzen — und wie?"</div></div>
+      <div class="detail-item"><div class="di-label">Optionen</div><div class="di-val">A: Weisung · B: Abgesicherte Weisung · C: Einvernehmliche Vertragsänderung · D: Änderungskündigung</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Änderungstableau (8 Dim.) + Ampel + Optionenvergleich + Umsetzungsfahrplan + Checkliste</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Vollprüfung — Ersteinschätzung → Versetzungs-Check v2</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-befristungs-pilot" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--blue-bg);color:var(--blue-fg);">Versetzung</span>
+      Befristungs-Pilot
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: HR / Legal</span>
+    </div>
+    <p class="desc">Wirksamkeitsprüfung und Gestaltungsberatung für befristete Arbeitsverhältnisse. Deckt sachgrundlose Befristung (§ 14 II TzBfG), Sachgrundbefristung (§ 14 I), Vorbeschäftigung (BVerfG 2018), Verlängerungsdogmatik, Kettenbefristung und Schriftformerfordernis ab.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Hält die Befristung?"</div></div>
+      <div class="detail-item"><div class="di-label">Besonderheit</div><div class="di-val">Aktuelle BVerfG-Rechtsprechung zur Vorbeschäftigung (2018) integriert</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Ampel + Prüfung + Rechtsfolge bei Unwirksamkeit + Fristentableau + Red Flags</div></div>
+      <div class="detail-item"><div class="di-label">Wann nutzen</div><div class="di-val">Bestehende Befristung prüfen ODER neue Befristung planen.</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- MITBESTIMMUNG -->
+<div id="mitbestimmung" class="detail-section">
+  <h2>Mitbestimmung</h2>
+  <p class="section-sub">Prompts für Mitbestimmungsfragen vom schnellen Einordnungscheck bis zur strategischen Verhandlungsvorbereitung mit der Arbeitnehmervertretung.</p>
+
+  <div id="detail-br-kompass" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--purple-bg);color:var(--purple-fg);">Mitbestimmung</span>
+      BR-Kompass v2
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: LR</span>
+    </div>
+    <p class="desc">Präzise betriebsverfassungsrechtliche Einordnung einer Arbeitgebermaßnahme in 7 Schritten. Zentrales Alleinstellungsmerkmal: Der Negativ-Check — was ist NICHT mitbestimmungspflichtig und was darf der AG ohne BR tun? Zudem: Wie weit reicht die Mitbestimmung genau?</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Was ist mitbestimmungspflichtig — wie weit?"</div></div>
+      <div class="detail-item"><div class="di-label">Alleinstellungsmerkmal</div><div class="di-val">Positiv- UND Negativ-Check · Reichweite der MBR · AG-Spielräume</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Einordnungstabelle + Positiv-Check + Negativ-Check + Spielräume + Risiken</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Reine MBR-Einordnung. Verhandlung → Verhandlungs-Kompass.</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-verhandlungs-kompass" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--purple-bg);color:var(--purple-fg);">Mitbestimmung</span>
+      Verhandlungs-Kompass
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: LR</span>
+    </div>
+    <p class="desc">Strategische Verhandlungsvorbereitung für BV-Verhandlungen mit BR/GBR. Verwendet die ReAct-Methode, um Positionsstärken, BATNA/WATNA, Kompromissfelder und ein vollständiges Verhandlungsdrehbuch zu entwickeln.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Wie verhandeln wir mit dem BR?"</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Positionsanalyse + BATNA/WATNA + Kompromissfelder + Verhandlungsdrehbuch (Eröffnung, Reihenfolge, Zugeständnisse, Red Lines)</div></div>
+      <div class="detail-item"><div class="di-label">Methode</div><div class="di-val">ReAct-Zyklen (iterativ): Thought → Action → Observation</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Verhandlungsvorbereitung — nicht Vollanalyse (→ AR-Lotse) oder MBR-Einordnung (→ BR-Kompass).</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-massnahmen-architekt" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--purple-bg);color:var(--purple-fg);">Mitbestimmung</span>
+      Maßnahmen-Architekt
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: HR / LR / Projektleitung</span>
+    </div>
+    <p class="desc">Konstruiert geplante Maßnahmen so, dass sie rechtlich halten und praktisch umsetzbar sind. Geht über die reine Mitbestimmungsprüfung hinaus: Rechtsgrundlage, materielle Voraussetzungen, Datenschutz (DSGVO/BDSG), Kollektivrecht und chronologischer Umsetzungsfahrplan.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Wie setzen wir das rechtssicher um?"</div></div>
+      <div class="detail-item"><div class="di-label">Gestaltungsebenen</div><div class="di-val">MUSS (zwingend) · SOLL (empfohlen) · KANN (Best Practice)</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Gestaltungsampel + Risikomatrix + Empfehlung + Umsetzungsfahrplan + Checkliste</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">BR-Kompass fragt ob. Maßnahmen-Architekt fragt wie.</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-lr-taktiker" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--purple-bg);color:var(--purple-fg);">Mitbestimmung</span>
+      LR-Taktiker
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: HR / Mgmt / LR</span>
+    </div>
+    <p class="desc">Der einzige Prompt, der rechtliche Analyse, Verhandlungsdynamik und betriebliche Umsetzung in einem iterativen ReAct-Fluss verbindet. Denkt wie ein erfahrener LR-Manager: nicht rein juristisch, sondern operativ — mit Eskalationsszenarien und Verhandlungstaktik.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Recht + Taktik + Praxis — iterativ?"</div></div>
+      <div class="detail-item"><div class="di-label">USP</div><div class="di-val">Einziger Prompt mit ReAct + Taktik + Eskalationsszenario + Betriebspraxis kombiniert</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Ampel + Recht + Mitbestimmung + Risiken (rechtl./takt./prakt.) + LR-Empfehlung + Routing</div></div>
+      <div class="detail-item"><div class="di-label">Wann LR-Taktiker statt BR-Kompass?</div><div class="di-val">Wenn neben der MBR-Frage auch Verhandlungsdynamik und operative Umsetzung gefragt sind.</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-arbeitszeit-kompass" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--purple-bg);color:var(--purple-fg);">Mitbestimmung</span>
+      Arbeitszeit-Kompass
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: HR / Compliance</span>
+    </div>
+    <p class="desc">Compliance-Prüfung und Gestaltung von Arbeitszeitregelungen. Prüft ArbZG §§ 3–16, Zeiterfassungspflicht (BAG 13.09.2022, EuGH CCOO), Mitbestimmung § 87 I Nr. 2, 3, 6, 7 BetrVG sowie 9 Arbeitszeitmodelle. Deckt Bußgeldrisiken (§ 22 ArbZG: bis 30.000 EUR) auf.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Ist unsere Arbeitszeit compliant?"</div></div>
+      <div class="detail-item"><div class="di-label">Zeiterfassung</div><div class="di-val">BAG 2022: Pflicht zur Zeiterfassung nach § 3 II ArbSchG bereits jetzt — auch bei Vertrauensarbeitszeit</div></div>
+      <div class="detail-item"><div class="di-label">Falltypen</div><div class="di-val">A: Prüfung bestehende Regelung · B: Gestaltung neue Regelung · C: Beides</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Compliance-Ampel (10 Prüfpunkte) + Risikomatrix + MUSS/SOLL/KANN + BV-Regelungspunkte</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- VERGÜTUNG & VERTRÄGE -->
+<div id="verguetung" class="detail-section">
+  <h2>Vergütung &amp; Verträge</h2>
+  <p class="section-sub">Prompts für variable Vergütungsregelungen, Klauselprüfung und arbeitsvertragliche Gestaltungsfragen.</p>
+
+  <div id="detail-boni-pruefer" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--green-bg);color:var(--green-fg);">Vergütung</span>
+      Boni-Prüfer
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: HR / Legal</span>
+    </div>
+    <p class="desc">Rechtliche Prüfung und Gestaltung variabler Vergütungsregelungen. Fokus auf Abgrenzung Anspruch vs. Freiwilligkeit, Wirksamkeit von Freiwilligkeits-/Widerrufs-/Stichtagsklauseln, Zielvereinbarung vs. Zielvorgabe und Mitbestimmung nach § 87 I Nr. 10 BetrVG.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Ist die Bonusregelung zulässig?"</div></div>
+      <div class="detail-item"><div class="di-label">Schwerpunkte</div><div class="di-val">Freiwilligkeit · Widerruf · Stichtag · Zielvereinbarung/Zielvorgabe · § 87 Nr. 10</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Kurzbewertung + Rechtliche Einordnung + Hauptrisiken + Gestaltungsempfehlungen + Mitbestimmung + opt. Musterklauseln</div></div>
+      <div class="detail-item"><div class="di-label">Maßstab</div><div class="di-val">AGB-Kontrolle + BAG-Rspr. zu variablen Vergütungen + BetrVG</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-verguetungs-pruefer" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--green-bg);color:var(--green-fg);">Vergütung</span>
+      Vergütungs-Prüfer
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: HR / Legal</span>
+    </div>
+    <p class="desc">Systematische 6-Schritt-Prüfung variabler Vergütungssysteme. Ähnlich dem Boni-Prüfer, aber mit stärkerem Fokus auf Praxisumsetzbarkeit, Risikopriorisierung nach Eintrittswahrscheinlichkeit und Schadenshöhe sowie konditionalen Musterklauseln.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Variable Vergütung — rechtssicher?"</div></div>
+      <div class="detail-item"><div class="di-label">Methode</div><div class="di-val">6 Schritte: Sachverhaltserfassung → Individualrecht → Ziel → Kollektivrecht → Risiken → Gestaltung</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Kurzbewertung + Einordnung + Zielvergütung + Hauptrisiken + Gestaltung + Mitbestimmung + Offene Punkte</div></div>
+      <div class="detail-item"><div class="di-label">Stop-Bedingung</div><div class="di-val">Gezielte Rückfragen bei fehlenden Angaben vor Abschluss der Prüfung</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-klausel-check" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--green-bg);color:var(--green-fg);">Vergütung</span>
+      Klausel-Check
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: Legal / HR</span>
+    </div>
+    <p class="desc">Wirksamkeitsprüfung arbeitsvertraglicher Klauseln nach AGB-Recht (§§ 305–310 BGB). Prüft Einbeziehung, Überraschung, Mehrdeutigkeit, Transparenz und Inhaltskontrolle (§§ 309, 308, 307). Liefert drei Formulierungsvarianten (A: Grenzversion, B: Empfohlen, C: Minimale Korrektur).</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Hält die AV-Klausel?"</div></div>
+      <div class="detail-item"><div class="di-label">Prüfreihenfolge</div><div class="di-val">Spezialgesetz → Einbeziehung → Transparenz → Inhaltskontrolle (§§ 309/308/307) → Wechselwirkungen</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Ampel + Killerpunkte + Prüfung + Rechtsfolge bei Unwirksamkeit + 3 Formulierungsvarianten + Red Flags</div></div>
+      <div class="detail-item"><div class="di-label">Besonderheit</div><div class="di-val">Strenge Prüfung aus richterlicher Perspektive — kein wohlwollendes Lesen</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STREIT & PROZESS -->
+<div id="prozess" class="detail-section">
+  <h2>Streit &amp; Prozess</h2>
+  <p class="section-sub">Prompts für laufende Kündigungsschutzverfahren — von der Prozessstrategie bis zur Vergleichsverhandlung.</p>
+
+  <div id="detail-prozess-lotse" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--red-bg);color:var(--red-fg);">Prozess</span>
+      Prozess-Lotse
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: Legal / RA / HR</span>
+    </div>
+    <p class="desc">Prozessstrategie im Kündigungsschutzverfahren. Bewertet Erfolgsaussichten, erstellt Beweismatrix, analysiert Argumentationslinien beider Seiten und der Gerichtsperspektive, modelliert drei Szenarien (Obsiegen/Vergleich/Unterliegen) und entwickelt Terminstrategie für Güte- und Kammertermin.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Wie gewinnen wir den KSch-Prozess?"</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Nicht ob kündigen (→ Kündigungs-Prüfer). Nicht Vergleich (→ Vergleichs-Stratege). Wie den Prozess führen.</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Prozesskiller + Ampel + Beweismatrix + Argumentation + 3 Szenarien + Terminstrategie</div></div>
+      <div class="detail-item"><div class="di-label">Besonderheit</div><div class="di-val">Gerichtsperspektive: Was wird der/die Vorsitzende wahrscheinlich fragen?</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-vergleichs-stratege" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:var(--red-bg);color:var(--red-fg);">Prozess</span>
+      Vergleichs-Stratege
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: LR / Legal</span>
+    </div>
+    <p class="desc">Entscheidungsreife Vergleichsstrategie in arbeitsrechtlichen Streitigkeiten. Berechnet drei Szenarien (Sieg/Vergleich/Niederlage), bestimmt BATNA/WATNA, entwickelt Abfindungskorridor und Verhandlungslinie (Einstieg → Ziel → Schmerzgrenze → Red Lines) sowie Präzedenzmanagement.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Vergleich oder Urteil — zu welchem Preis?"</div></div>
+      <div class="detail-item"><div class="di-label">Verhandlungslinie</div><div class="di-val">Einstiegsangebot · Zielkorridor · Schmerzgrenze · Rote Linien</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Prozessrisiko + Szenarienvergleich + BATNA/WATNA + Vergleichsstrategie + Präzedenzwirkung</div></div>
+      <div class="detail-item"><div class="di-label">Besonderheit</div><div class="di-val">Präzedenz-Sensibilität: Ein großzügiger Vergleich kann zehn Folgefälle produzieren.</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- VOLLANALYSE & ENTSCHEIDUNG -->
+<div id="analyse" class="detail-section">
+  <h2>Vollanalyse &amp; Entscheidung</h2>
+  <p class="section-sub">Prompts für vollständige juristische Fallanalysen und strukturierte Entscheidungsvorlagen für Management und HR.</p>
+
+  <div id="detail-ar-lotse" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:#eeedfe;color:#534ab7;">Analyse</span>
+      AR-Lotse v3
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: LR / Legal</span>
+    </div>
+    <p class="desc">Der Generalist im Prompt-System. Vollständige arbeitsrechtliche Fallanalyse in 11 Schritten mit Kommentarliteratur. Liefert bis zu 5 zielgruppenspezifische Versionen (V1 HR · V2 GF · V3 Legal · V4 BR-Kommunikation · V5 Schriftsatz) sowie 4 optionale Artefakte (Checkliste, Musterformulierungen, Verhandlungsleitfaden, GF-Vorlage).</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Was ist die vollständige Gesamtlage?"</div></div>
+      <div class="detail-item"><div class="di-label">Versionen</div><div class="di-val">V1: HR · V2: Geschäftsführung · V3: Legal · V4: BR-Kommunikation · V5: Schriftsatz-Entwurf</div></div>
+      <div class="detail-item"><div class="di-label">Optionale Artefakte</div><div class="di-val">A1: Checkliste erweitert · A2: Musterformulierungen · A3: Verhandlungsleitfaden · A4: GF-Entscheidungsvorlage</div></div>
+      <div class="detail-item"><div class="di-label">Tiefe</div><div class="di-val">Recht + Rspr. + Kommentarliteratur (4 Qualitätsstufen) + Artefakte</div></div>
+    </div>
+    <div style="margin-top:1rem;"><div class="di-label">Commands</div>
+      <div class="routing-list">
+        <span class="routing-chip">/version [V1–V5]</span>
+        <span class="routing-chip">/artefakt [A1–A4]</span>
+        <span class="routing-chip">/redflags</span>
+        <span class="routing-chip">/zeitstrahl</span>
+        <span class="routing-chip">/beweismatrix</span>
+        <span class="routing-chip">/baum</span>
+        <span class="routing-chip">/update</span>
+        <span class="routing-chip">/fazit</span>
+        <span class="routing-chip">/routing</span>
+        <span class="routing-chip">/help</span>
+      </div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+
+  <div id="detail-entscheidungs-pilot" class="prompt-detail">
+    <h3>
+      <span class="bdg" style="background:#eeedfe;color:#534ab7;">Analyse</span>
+      Entscheidungs-Pilot
+    </h3>
+    <div class="meta-row">
+      <span class="dep-tag">Vollanalyse</span>
+      <span class="dep-tag">Adressat: Management / HR</span>
+    </div>
+    <p class="desc">Strukturierte Entscheidungsvorlage für Management und HR. Gegenüberstellung von 2–4 realistischen Handlungsoptionen nach 6 einheitlichen Kriterien (Recht, Prozess, Umsetzung, Wirtschaft, Strategie, Reversibilität). Ergebnis: Go/No-Go mit konkreten Umsetzungsschritten und Management Takeaway.</p>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="di-label">Kernfrage</div><div class="di-val">„Welche Option wählen wir?"</div></div>
+      <div class="detail-item"><div class="di-label">6 Bewertungskriterien</div><div class="di-val">K1: Recht · K2: Prozess/Beweis · K3: Umsetzung · K4: Wirtschaft · K5: Strategie · K6: Reversibilität</div></div>
+      <div class="detail-item"><div class="di-label">Output</div><div class="di-val">Entscheidungsfrage + Optionen + Vergleichsmatrix + Empfehlung + Umsetzungsschritte + Management Takeaway</div></div>
+      <div class="detail-item"><div class="di-label">Abgrenzung</div><div class="di-val">Nicht Analyse (→ AR-Lotse). Nicht Verhandlung (→ Verhandlungs-Kompass). Entscheidung treffen.</div></div>
+    </div>
+    <div onclick="window.scrollTo({top:document.getElementById('navigator').offsetTop-60,behavior:'smooth'})" class="backtop">↑ Zurück zum Navigator</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="divider"></div>
+<div style="text-align:center;padding:1.5rem 0;">
+  <p style="font-size:12px;color:var(--txt3);line-height:1.8;">Labour Relations Prompt-Bibliothek · Arbeitgeberperspektive · Deutsches Arbeitsrecht<br>Alle Prompts liefern arbeitsrechtliche Einschätzungen — kein Ersatz für rechtliche Beratung im Einzelfall.</p>
+</div>
+
+</div><!-- /page -->
+
+<script>
+const CS = {
+  schnell:       {bg:'#faeeda',fg:'#854f0b',label:'Schnellcheck'},
+  kuendigung:    {bg:'#fcebeb',fg:'#a32d2d',label:'Kündigung'},
+  versetzung:    {bg:'#e6f1fb',fg:'#185fa5',label:'Versetzung'},
+  mitbestimmung: {bg:'#eeedfe',fg:'#534ab7',label:'Mitbestimmung'},
+  verguetung:    {bg:'#eaf3de',fg:'#3b6d11',label:'Vergütung'},
+  prozess:       {bg:'#fcebeb',fg:'#993c1d',label:'Prozess'},
+  analyse:       {bg:'#f0efe9',fg:'#5a5a56',label:'Analyse'},
+};
+const CATS=[
+  {id:'all',label:'Alle Prompts'},
+  {id:'schnell',label:'Schnellchecks'},
+  {id:'kuendigung',label:'Kündigung & Abmahnung'},
+  {id:'versetzung',label:'Versetzung & Befristung'},
+  {id:'mitbestimmung',label:'Mitbestimmung'},
+  {id:'verguetung',label:'Vergütung & Verträge'},
+  {id:'prozess',label:'Streit & Prozess'},
+  {id:'analyse',label:'Vollanalyse'},
+];
+const QUICK=[
+  {label:'Schnelle Risikoeinschätzung',sub:'Bevor ich handle',cat:'schnell',dep:'schnell',icon:'🔍'},
+  {label:'Kündigung vorbereiten',sub:'Ordentlich oder außerordentlich',cat:'kuendigung',dep:'ausfuehrlich',icon:'✂️'},
+  {label:'Muss ich den BR beteiligen?',sub:'Mitbestimmung klären',cat:'mitbestimmung',dep:'all',icon:'⚖️'},
+  {label:'BV-Verhandlung vorbereiten',sub:'Strategie für den Tisch',cat:'mitbestimmung',dep:'ausfuehrlich',icon:'🤝'},
+  {label:'KSch-Klage läuft',sub:'Prozess oder Vergleich?',cat:'prozess',dep:'all',icon:'⚔️'},
+  {label:'Vollständige Fallanalyse',sub:'Für Legal und Management',cat:'analyse',dep:'ausfuehrlich',icon:'📋'},
+];
+const PROMPTS=[
+  {n:'Risiko-Radar',cat:'schnell',dep:'schnell',q:'"Wie riskant ist das?"',d:'Risikomatrix: Eintrittswahrscheinlichkeit, Normen, typische Gegenargumente, priorisierte Empfehlungen.',aud:'LR / HR',id:'risiko-radar'},
+  {n:'Quick-Check',cat:'schnell',dep:'schnell',q:'"Geht das so?"',d:'Zulässigkeitsprüfung in max. 2 Seiten: Rechtsgrundlage, Mitbestimmung, Kernrisiken, Go/No-Go.',aud:'HR / FK / LR',id:'quick-check'},
+  {n:'BR-Check',cat:'schnell',dep:'schnell',q:'"Greift Mitbestimmung — schnell?"',d:'Mitbestimmungslandkarte auf einen Blick. Positiv- und Negativ-Check, Zuständigkeit.',aud:'LR',id:'br-check'},
+  {n:'Versetzungs-Check v2',cat:'schnell',dep:'schnell',q:'"Versetzen — geht das?"',d:'Ersteinschätzung mit vierstufiger Risikokategorie (I–IV) und direktem Routing.',aud:'HR / FK',id:'versetzungs-check'},
+  {n:'Entscheidungs-Pilot (kurz)',cat:'schnell',dep:'schnell',q:'"Welche Option — schnell?"',d:'Kompakte Optionenabwägung mit Go/No-Go für den täglichen HR/Mgmt-Einsatz.',aud:'HR / Mgmt',id:'entscheidungspilot-kurz'},
+  {n:'Prozess-Lotse (kurz)',cat:'schnell',dep:'schnell',q:'"Prozesstaktik — sofort?"',d:'Prozessuale Ersteinschätzung vor Güte- oder Kammertermin. Ampel + Terminstrategie.',aud:'Legal / HR',id:'prozess-lotse-kurz'},
+  {n:'Kündigungs-Prüfer',cat:'kuendigung',dep:'ausfuehrlich',q:'"Können wir kündigen — und wie?"',d:'10-Schritt-Prüfung: Kündigungsart, KSchG, Grund, Sozialauswahl, BR-Anhörung, Fristen.',aud:'HR / Legal / GF',id:'kuendigungs-pruefer'},
+  {n:'Abmahnungs-Assistent',cat:'kuendigung',dep:'ausfuehrlich',q:'"Abmahnung oder nicht — und wie?"',d:'Pflichtverletzung, Nachweisbarkeit, Instrumentenwahl (A–D), Eskalationsschema, Muster.',aud:'HR / FK',id:'abmahnungs-assistent'},
+  {n:'Versetzungs-Navigator',cat:'versetzung',dep:'ausfuehrlich',q:'"Dürfen wir versetzen — und wie?"',d:'8-Schritt-Vollprüfung: Direktionsrecht, Konkretisierung, billiges Ermessen, § 99 BetrVG, Optionen A–D.',aud:'HR / LR / Legal',id:'versetzungs-navigator'},
+  {n:'Befristungs-Pilot',cat:'versetzung',dep:'ausfuehrlich',q:'"Hält die Befristung?"',d:'Sachgrundlos/Sachgrund, Vorbeschäftigung (BVerfG 2018), Verlängerung, Entfristungsrisiko.',aud:'HR / Legal',id:'befristungs-pilot'},
+  {n:'BR-Kompass v2',cat:'mitbestimmung',dep:'ausfuehrlich',q:'"Was ist mitbestimmungspflichtig — wie weit?"',d:'Positiv- UND Negativ-Check, Reichweite der MBR, AG-Spielräume, Zuständigkeit BR/GBR/KBR.',aud:'LR',id:'br-kompass'},
+  {n:'Verhandlungs-Kompass',cat:'mitbestimmung',dep:'ausfuehrlich',q:'"Wie verhandeln wir mit dem BR?"',d:'BV-Verhandlung strategisch vorbereiten: BATNA/WATNA, Kompromissfelder, Verhandlungsdrehbuch.',aud:'LR',id:'verhandlungs-kompass'},
+  {n:'Maßnahmen-Architekt',cat:'mitbestimmung',dep:'ausfuehrlich',q:'"Wie setzen wir das rechtssicher um?"',d:'Rechtsgrundlage, Datenschutz, Kollektivrecht, MUSS/SOLL/KANN, Umsetzungsfahrplan.',aud:'HR / LR',id:'massnahmen-architekt'},
+  {n:'LR-Taktiker',cat:'mitbestimmung',dep:'ausfuehrlich',q:'"Recht + Taktik + Praxis — iterativ?"',d:'ReAct-Methode: Recht, Verhandlungsdynamik und betriebliche Umsetzung in einem Fluss.',aud:'HR / Mgmt / LR',id:'lr-taktiker'},
+  {n:'Arbeitszeit-Kompass',cat:'mitbestimmung',dep:'ausfuehrlich',q:'"Ist unsere Arbeitszeit compliant?"',d:'ArbZG §§ 3–16, Zeiterfassungspflicht (BAG 2022), § 87 BetrVG, Bußgeldrisiken (§ 22).',aud:'HR / Compliance',id:'arbeitszeit-kompass'},
+  {n:'Boni-Prüfer',cat:'verguetung',dep:'ausfuehrlich',q:'"Ist die Bonusregelung zulässig?"',d:'Variable Vergütung: Anspruch/Freiwilligkeit, Klauselwirksamkeit, Zielvereinbarung, § 87 Nr. 10.',aud:'HR / Legal',id:'boni-pruefer'},
+  {n:'Vergütungs-Prüfer',cat:'verguetung',dep:'ausfuehrlich',q:'"Variable Vergütung — rechtssicher?"',d:'6-Schritt-Prüfung: AGB-Kontrolle, billiges Ermessen, Mitbestimmung, Musterklauseln.',aud:'HR / Legal',id:'verguetungs-pruefer'},
+  {n:'Klausel-Check',cat:'verguetung',dep:'ausfuehrlich',q:'"Hält die AV-Klausel?"',d:'AGB-Kontrolle §§ 305–310 BGB, Transparenz, Inhaltskontrolle, 3 Formulierungsvarianten.',aud:'Legal / HR',id:'klausel-check'},
+  {n:'Prozess-Lotse',cat:'prozess',dep:'ausfuehrlich',q:'"Wie gewinnen wir den KSch-Prozess?"',d:'Beweismatrix, Argumentationslinien, 3 Szenarien, Terminstrategie (Güte + Kammer).',aud:'Legal / RA / HR',id:'prozess-lotse'},
+  {n:'Vergleichs-Stratege',cat:'prozess',dep:'ausfuehrlich',q:'"Vergleich oder Urteil — zu welchem Preis?"',d:'Prozessrisiko, 3 Szenarien, BATNA/WATNA, Abfindungskorridor, Verhandlungstaktik.',aud:'LR / Legal',id:'vergleichs-stratege'},
+  {n:'AR-Lotse v3',cat:'analyse',dep:'ausfuehrlich',q:'"Was ist die vollständige Gesamtlage?"',d:'11-Schritt-Vollanalyse mit Literatur. Bis zu 5 Versionen (HR/GF/Legal/BR/Schriftsatz) + 4 Artefakte.',aud:'LR / Legal',id:'ar-lotse'},
+  {n:'Entscheidungs-Pilot',cat:'analyse',dep:'ausfuehrlich',q:'"Welche Option wählen wir?"',d:'Optionen nach 6 Kriterien, Vergleichsmatrix, Go/No-Go, Umsetzungsschritte, Management Takeaway.',aud:'Mgmt / HR',id:'entscheidungs-pilot'},
+];
+
+let aC='all',aD='all';
+
+function goTo(id){
+  const el=document.getElementById('detail-'+id);
+  if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}
+}
+
+function render(){
+  document.getElementById('catf').innerHTML=CATS.map(c=>
+    `<button class="chip${aC===c.id?' on':''}" onclick="setC('${c.id}')">${c.label}</button>`
+  ).join('');
+  document.getElementById('depf').innerHTML=[
+    ['all','Alle Tiefen'],['schnell','Schnell (1–2 S.)'],['ausfuehrlich','Vollanalyse']
+  ].map(([id,l])=>
+    `<button class="chip${aD===id?' on':''}" onclick="setD('${id}')">${l}</button>`
+  ).join('');
+  const vis=PROMPTS.filter(p=>(aC==='all'||p.cat===aC)&&(aD==='all'||p.dep===aD));
+  document.getElementById('cnt').textContent=vis.length+' Prompt'+(vis.length!==1?'s':'')+' gefunden';
+  document.getElementById('pgrid').innerHTML=vis.length===0
+    ?'<p style="text-align:center;padding:2rem;color:var(--txt3);font-size:13px;grid-column:1/-1;">Keine Ergebnisse.</p>'
+    :vis.map(p=>{
+      const s=CS[p.cat];
+      return `<a href="#detail-${p.id}" class="pcard" onclick="event.preventDefault();goTo('${p.id}')">
+        <div class="pcard-head">
+          <span class="pcard-name">${p.n}</span>
+          <span class="bdg" style="background:${s.bg};color:${s.fg};">${s.label}</span>
+        </div>
+        <p class="pcard-q">${p.q}</p>
+        <p class="pcard-d">${p.d}</p>
+        <div class="pcard-foot">
+          <span class="pcard-aud">Adressat: ${p.aud}</span>
+          <span class="dep-tag">${p.dep==='schnell'?'Schnellcheck':'Vollanalyse'}</span>
+        </div>
+      </a>`;
+    }).join('');
+}
+
+document.getElementById('qstart').innerHTML=QUICK.map(q=>{
+  const s=CS[q.cat];
+  return `<div class="qcard" onclick="setQ('${q.cat}','${q.dep}')">
+    <div class="qicon" style="background:${s.bg};">${q.icon}</div>
+    <div class="qcard-text">
+      <p>${q.label}</p>
+      <p>${q.sub}</p>
+    </div>
+  </div>`;
+}).join('');
+
+function setC(id){aC=id;aD='all';render();}
+function setD(id){aD=id;render();}
+function setQ(cat,dep){aC=cat;aD=dep;render();
+  document.getElementById('pgrid').scrollIntoView({behavior:'smooth',block:'start'});}
+
+render();
+</script>
+</body>
+</html>
