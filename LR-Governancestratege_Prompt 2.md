@@ -1,6 +1,6 @@
-# LR-Stratege — Präventive Betriebsratsstrategie aus Arbeitgebersicht
+# LR-Governancestrategestratege — Präventive Betriebsratsstrategie aus Arbeitgebersicht
 
-## Vorgeschlagener Name: **LR-Stratege**
+## Vorgeschlagener Name: **LR-Governancestratege**
 *(Strategische Architektur der BR-Zusammenarbeit — Governance, Prävention, Eskalation)*
 
 ### Prompting-Technik: Strategic Architecture Design
