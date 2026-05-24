@@ -1,0 +1,293 @@
+{
+  "_meta": {
+    "version": "2.0",
+    "source_repo": "https://github.com/marta-boening/LR_Prompts",
+    "base_url_raw": "https://raw.githubusercontent.com/marta-boening/LR_Prompts/main/",
+    "last_sync": "2026-05-24",
+    "notes": "Dateinamen an Repo-Realität angepasst. URL-encoding für Leerzeichen beachten."
+  },
+  "prompts": [
+    {
+      "id": "ar-lotse",
+      "name": "AR-Lotse v3",
+      "file": "AR-Lotse_v3_Prompt.md",
+      "triggers": ["Detaillierte Analyse", "Vollversion", "Schriftsatz", "alle Aspekte", "Arbeitsrecht prüfen"],
+      "depth": "full",
+      "method": "structured-prompting",
+      "related": ["br-konter-check", "einigungsstellen-kompass"],
+      "description": "Arbeitsrechtliche Fallanalyse mit 11-Schritt-Workflow für individualrechtliche und kollektivrechtliche Fragen"
+    },
+    {
+      "id": "lr-taktiker",
+      "name": "LR-Taktiker v1.2",
+      "file": "LR-Taktiker_Prompt.md",
+      "triggers": ["Schnell reagieren", "operativ", "wie vorgehen", "taktik", "erste Schritte"],
+      "depth": "full",
+      "method": "react",
+      "related": ["ar-lotse", "br-kompass"],
+      "description": "Operative iterative Analyse mit ReAct-Zyklen für schnelle Entscheidungsfindung"
+    },
+    {
+      "id": "mbr-check",
+      "name": "MBR-Check",
+      "file": "MBR-Check_Prompt.md",
+      "triggers": ["Wie gestalten", "MBR-fest", "Spielraum", "Gestaltung", "ist zulässig"],
+      "depth": "quick",
+      "method": "constraint-scan",
+      "related": ["mbr-architekt"],
+      "description": "Schnelle Gestaltungsprüfung auf Mitbestimmungsfestigkeit"
+    },
+    {
+      "id": "lr-stratege",
+      "name": "LR-Governancestratege",
+      "file": "LR-Governancestratege_Prompt%202.md",
+      "triggers": ["Strategisch", "langfristig", "Risiko-Portfolio", "Vision"],
+      "depth": "full",
+      "method": "strategic-portfolio",
+      "related": [],
+      "description": "Strategische Meta-Ebene: Langfristige Positionierung und Risiko-Management",
+      "_warning": "Dateiname enthält Leerzeichen + '2' — Repo-Aufräumung empfohlen"
+    },
+    {
+      "id": "br-check-quick",
+      "name": "BR-Check Quick",
+      "file": "BR-Check_Prompt.md",
+      "triggers": ["Betriebsrat", "Mitbestimmung", "schnell", "überblick"],
+      "depth": "quick",
+      "method": "decision-gate",
+      "related": ["br-kompass"],
+      "description": "Schnelle Ersteinschätzung: Greift MBR? Go/No-Go?"
+    },
+    {
+      "id": "br-kompass",
+      "name": "BR-Kompass v2",
+      "file": "BR-Kompass_v2_Prompt.md",
+      "triggers": ["Mitbestimmung klären", "Reichweite", "was greift", "tiefe"],
+      "depth": "full",
+      "method": "structured-prompting",
+      "related": ["br-check-quick", "br-konter-check"],
+      "description": "Tiefere Analyse von Mitbestimmungsrecht und -reichweite nach BetrVG"
+    },
+    {
+      "id": "br-konter-check",
+      "name": "BR-Konter Check v1.1",
+      "file": "BR-Konter-Check_v1.1_Prompt.md",
+      "triggers": ["BR behauptet", "Gegenstrategie", "ist BR recht", "kontern", "Widerlegung"],
+      "depth": "quick",
+      "method": "adversarial-cot",
+      "related": ["br-konter"],
+      "description": "Kompakte Ersteinschätzung: BR-Position kontern und Gegenargumente aufbauen"
+    },
+    {
+      "id": "br-konter",
+      "name": "BR-Konter v1.1",
+      "file": "BR-Konter_Prompt.md",
+      "triggers": ["Tiefe Gegenstrategie", "ausführlich kontern", "vollständige Analyse"],
+      "depth": "full",
+      "method": "adversarial-cot",
+      "related": ["br-konter-check", "ar-lotse"],
+      "description": "Vertiefte Dekonstruktion von BR-Positionen"
+    },
+    {
+      "id": "mbr-architekt",
+      "name": "MBR-Architekt",
+      "file": "MBR-Architekt_Prompt%202.md",
+      "triggers": ["Vollgestaltung", "Varianten", "Vergleich", "Optimierung"],
+      "depth": "full",
+      "method": "constraint-optimized-design",
+      "related": ["mbr-check"],
+      "description": "Vollständige MBR-Gestaltung mit Varianten A–D und Vergleichstabelle",
+      "_warning": "Dateiname enthält Leerzeichen + '2' — Repo-Aufräumung empfohlen"
+    },
+    {
+      "id": "quick-check",
+      "name": "Quick-Check",
+      "file": "Quick-Check_Prompt.md",
+      "triggers": ["Schnell prüfen", "Erste Einschätzung", "Überblick"],
+      "depth": "quick",
+      "method": "rapid-assessment",
+      "related": ["massnahmen-architekt"],
+      "description": "Schnelle Maßnahmen-Ersteinschätzung"
+    },
+    {
+      "id": "massnahmen-architekt",
+      "name": "Maßnahmen-Architekt",
+      "file": "Massnahmen-Architekt_Prompt.md",
+      "triggers": ["Maßnahmengestaltung", "Planung", "Umsetzung", "Ablauf"],
+      "depth": "full",
+      "method": "structured-prompting",
+      "related": ["quick-check"],
+      "description": "Maßnahmen-Design und Umsetzungsplanung"
+    },
+    {
+      "id": "versetzungs-check",
+      "name": "Versetzungs-Check v2",
+      "file": "Versetzungs-Check_v2_Prompt.md",
+      "triggers": ["Versetzung", "Standortwechsel", "schnelle Prüfung"],
+      "depth": "quick",
+      "method": "decision-gate",
+      "related": ["versetzungs-navigator"],
+      "description": "Schnelle Versetzungs-Rechtmäßigkeitsprüfung"
+    },
+    {
+      "id": "versetzungs-navigator",
+      "name": "Versetzungs-Navigator",
+      "file": "Versetzungs-Navigator_Prompt.md",
+      "triggers": ["Versetzung detailliert", "Umsetzung", "Ablauf", "Risiken"],
+      "depth": "full",
+      "method": "structured-prompting",
+      "related": ["versetzungs-check"],
+      "description": "Umfassender Versetzungs-Beratungsfahrplan"
+    },
+    {
+      "id": "lr-stratege-check",
+      "name": "LR-Stratege Check",
+      "file": "LR-Stratege-Check_Prompt.md",
+      "triggers": ["Strategie schnell", "Risiko-Scan", "Übersicht"],
+      "depth": "quick",
+      "method": "portfolio-scan",
+      "related": ["lr-stratege"],
+      "description": "Schnelle strategische Positionierung und Risiko-Bewertung"
+    },
+    {
+      "id": "agg-check",
+      "name": "AGG-Check",
+      "file": "AGG-Check_Prompt.md",
+      "triggers": ["Diskriminierung", "AGG", "Gleichbehandlung", "schnell prüfen"],
+      "depth": "quick",
+      "method": "decision-gate",
+      "related": ["agg-kompass"],
+      "description": "Schnelle AGG-Diskriminierungs-Risikoprüfung"
+    },
+    {
+      "id": "agg-kompass",
+      "name": "AGG-Kompass",
+      "file": "AGG-Kompass_Prompt.md",
+      "triggers": ["AGG detailliert", "Diskriminierungsprüfung", "Vollanalyse"],
+      "depth": "full",
+      "method": "structured-prompting",
+      "related": ["agg-check"],
+      "description": "Tiefe AGG-Analyse mit Anspruchsprüfung"
+    },
+    {
+      "id": "einigungsstellen-check",
+      "name": "Einigungsstellen-Check",
+      "file": "Einigungsstellen-Check_Prompt.md",
+      "triggers": ["Einigungsstelle ja nein", "Eskalation schnell"],
+      "depth": "quick",
+      "method": "option-snapshot",
+      "related": ["einigungsstellen-kompass"],
+      "description": "Schnelle Entscheidungshilfe: Einigungsstelle anrufen?"
+    },
+    {
+      "id": "einigungsstellen-kompass",
+      "name": "Einigungsstellen-Kompass",
+      "file": "Einigungsstellen-Kompass_Prompt.md",
+      "triggers": ["Einigungsstelle ja oder nein", "Eskalation", "anrufen", "verhandlung scheitert"],
+      "depth": "full",
+      "method": "strategic-assessment",
+      "related": ["einigungsstellen-pilot"],
+      "description": "Strategische Entscheidung: Einigungsstelle auf zwei Achsen"
+    },
+    {
+      "id": "pilot-check",
+      "name": "Einigungsstellen-Pilot-Check",
+      "file": "Einigungsstellen-Pilot-Check_Prompt.md",
+      "triggers": ["Pilot vorbereiten", "Argument schnell", "Position"],
+      "depth": "quick",
+      "method": "rapid-assessment",
+      "related": ["einigungsstellen-pilot"],
+      "description": "Schnelle Vorbereitung der Argumente für Einigungsstelle"
+    },
+    {
+      "id": "einigungsstellen-pilot",
+      "name": "Einigungsstellen-Pilot",
+      "file": "Einigungsstellen-Pilot_Prompt.md",
+      "triggers": ["Einigungsstelle Argumente", "Pilotposition", "Schichtung"],
+      "depth": "full",
+      "method": "layered-argumentation",
+      "related": ["pilot-check", "einigungsstellen-drehbuch"],
+      "description": "Dreischichtige Argumentationsarchitektur"
+    },
+    {
+      "id": "drehbuch-check",
+      "name": "Einigungsstellen-Drehbuch-Check",
+      "file": "Einigungsstellen-Drehbuch-Check_Prompt.md",
+      "triggers": ["Sitzung schnell", "Ablauf kurz", "Überblick"],
+      "depth": "quick",
+      "method": "rapid-assessment",
+      "related": ["einigungsstellen-drehbuch"],
+      "description": "Schnelle Sitzungs-Vorbereitung für Einigungsstelle"
+    },
+    {
+      "id": "einigungsstellen-drehbuch",
+      "name": "Einigungsstellen-Drehbuch",
+      "file": "Einigungsstellen-Drehbuch_Prompt.md",
+      "triggers": ["Einigungsstellen Sitzung", "Verhandlungsablauf", "Drehbuch"],
+      "depth": "full",
+      "method": "structured-prompting",
+      "related": ["drehbuch-check"],
+      "description": "Detailliertes Verhandlungs-Drehbuch"
+    },
+    {
+      "id": "umsetzungs-radar",
+      "name": "Umsetzungs-Radar",
+      "file": "Umsetzungs-Radar_Prompt.md",
+      "triggers": ["Go No-Go", "trotz BR", "Umsetzung risiko"],
+      "depth": "full",
+      "method": "decision-framework",
+      "related": ["verhandlungs-kompass"],
+      "description": "Go/No-Go trotz BR-Defizit"
+    },
+    {
+      "id": "verhandlungs-kompass",
+      "name": "Verhandlungs-Kompass",
+      "file": "Verhandlungs-Kompass_Prompt.md",
+      "triggers": ["BV-Verhandlung", "Betriebsvereinbarung", "Strategie", "taktik"],
+      "depth": "full",
+      "method": "structured-prompting",
+      "related": ["einigungsstellen-kompass"],
+      "description": "Betriebsvereinbarungs-Verhandlungsvorbereitung"
+    },
+    {
+      "id": "abmahnungs-assistent",
+      "name": "Abmahnungs-Assistent",
+      "file": "Abmahnungs-Assistent_Prompt.md",
+      "triggers": ["Abmahnung", "Verwarnung", "rechtssicher"],
+      "depth": "full",
+      "method": "structured-prompting",
+      "related": ["kundigungs-prufer"],
+      "description": "Abmahnungs-Entwurf mit rechtlicher Sicherung"
+    },
+    {
+      "id": "kundigungs-prufer",
+      "name": "Kündigungs-Prüfer",
+      "file": "Kuendigungs-Pruefer_Prompt.md",
+      "triggers": ["Kündigung", "Kündigungsprüfung", "rechtssicher"],
+      "depth": "full",
+      "method": "structured-prompting",
+      "related": ["abmahnungs-assistent", "prozess-lotse"],
+      "description": "Umfassende Kündigungsprüfung"
+    },
+    {
+      "id": "prozess-lotse",
+      "name": "Prozess-Lotse",
+      "file": "Prozess-Lotse_Prompt.md",
+      "triggers": ["Klage", "Gericht", "Prozess", "schriftsatz"],
+      "depth": "full",
+      "method": "structured-prompting",
+      "related": ["kundigungs-prufer", "vergleichs-stratege"],
+      "description": "Gerichtliche Klage-Vorbereitung mit Schriftsatz-Entwurf"
+    },
+    {
+      "id": "vergleichs-stratege",
+      "name": "Vergleichs-Stratege",
+      "file": "Vergleichs-Stratege_Prompt.md",
+      "triggers": ["Vergleich", "Verhandlung Gericht", "settlement", "einigung"],
+      "depth": "full",
+      "method": "strategic-assessment",
+      "related": ["prozess-lotse"],
+      "description": "Vergleichs-Verhandlungsvorbereitung mit Szenarien"
+    }
+  ]
+}
