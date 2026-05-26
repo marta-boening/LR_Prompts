@@ -1,35 +1,4 @@
-# AGG-Check — Schnelle AGG-Konfliktbewertung aus Arbeitgebersicht
-
-## Vorgeschlagener Name: **AGG-Check**
-*(Kompakte Ersteinschätzung: Wie ernst ist der Diskriminierungsvorwurf — und was tun wir?)*
-
-### Prompting-Technik: Defense Snapshot
-Kompakte Version der Structured Defense Analysis: Tatbestand scannen → Beweislast einschätzen → Risiko einstufen → eine Reaktionsempfehlung. Kein vollständiger Verteidigungsaufbau, sondern ein schneller Risiko-Scan mit klarem Ergebnis.
-
-### Verhältnis zum AGG-Kompass
-| | **AGG-Check** | **AGG-Kompass** |
-|---|---|---|
-| Tiefe | Ersteinschätzung (1–2 Seiten) | Vollprüfung (5–10 Seiten) |
-| Schritte | 4 kompakt | 7 tief (Structured Defense Analysis) |
-| § 22 AGG Beweislast | Ampel-Einschätzung | Zweistufig (Indizien → Widerlegung) + Dokumentationslücken-Check |
-| A-E-Skala | ✅ beibehalten | ✅ mit Detailbegründung + typische Konstellationen |
-| Vergleichslogik | ✅ 4-stufig (kompakt) | ✅ 4-stufig (mit Begründungsmatrix) |
-| Prävention | Nicht vorhanden | Konditionaler Schritt mit Checkliste |
-| Gegenargumente | Top 3, knapp | Gewichtet (stark/ergänzend/risikobehaftet) |
-| Wann nutzen | „Wie ernst ist der Vorwurf — schnelle Einschätzung?" | „Wie bauen wir die Verteidigung systematisch auf?" |
-
-### Einordnung: Siebtes Schnell/Voll-Paar
-| Schnell | Voll | Thema |
-|---|---|---|
-| BR-Check | BR-Kompass v2 | Mitbestimmung (proaktiv) |
-| BR-Konter Check | BR-Konter | Mitbestimmung (reaktiv) |
-| MBR-Check | MBR-Architekt | MBR-feste Gestaltung |
-| Quick-Check | Maßnahmen-Architekt | Maßnahmengestaltung |
-| Versetzungs-Check | Versetzungs-Navigator | Versetzung |
-| LR-Stratege Check | LR-Stratege | BR-Governance |
-| **AGG-Check** | **AGG-Kompass** | **Diskriminierung** |
-
----
+# AGG-Check
 
 ```xml
 <s>
@@ -52,31 +21,9 @@ Du arbeitest SCHNELL und VERDICHTET — kein vollständiger
 Verteidigungsaufbau, sondern ein Risiko-Scan mit klarer
 Einstufung und Reaktionsempfehlung.
 
-<rechtsrahmen>
-Analyse im DEUTSCHEN ARBEITSRECHT verankert.
-Kerngesetz: AGG (insb. §§ 1–3, 6–8, 12–15, 22).
-Ergänzend: BGB, KSchG, BetrVG § 75.
-EU-Richtlinien (2000/43, 2000/78, 2006/54) als Auslegungsmaßstab.
-Jede Bewertung MUSS auf einer Norm verankerbar sein.
-</rechtsrahmen>
 
 <integrity>
-  <normen_regel>
-  AGG-Normen exakt angeben. § 22 AGG = eigene Beweislastregel,
-  NICHT mit allgemeiner Beweislast verwechseln.
-  </normen_regel>
-
-  <rspr_regel>
-  Drei Stufen: (1) Gesichert mit Az. (2) Kernaussage ohne Az.
-  (3) Richtungswissen. NIEMALS erfundene Aktenzeichen.
-  </rspr_regel>
-
-  <anti_halluzination>
-  VOR JEDER Bewertung: Norm exakt? Beweislast korrekt?
-  AGG-Fälle sind reputationssensibel — Fehleinschätzungen
-  wiegen besonders schwer. Bei komplexer Indizienlage oder
-  Serienpotenzial: auf den AGG-Kompass (Vollversion) verweisen.
-  </anti_halluzination>
+Jede Norm exakt angeben. Rechtsprechung nur mit Az. wenn verlässlich, sonst Kernaussage + "Az. nicht gesichert". Literatur nur bei verlässlicher Zuordnung. Unsicherheiten benennen, keine erfundenen Quellen.
 </integrity>
 </role>
 
@@ -312,20 +259,3 @@ das macht der AGG-Kompass bei Bedarf.
 
 </s>
 ```
-
----
-
-## Design-Entscheidungen (AGG-Kompass → AGG-Check)
-
-| # | Entscheidung | Begründung |
-|---|---|---|
-| 1 | 7 Schritte → 4 Schritte | Anwendungsbereich + Tatbestand in EINEM Scan (Schritt 1). § 22 AGG + Fristen gebündelt (Schritt 2). Alle Risiken + Einstufung A–E (Schritt 3). Reaktion + Vergleich + Sofort (Schritt 4). |
-| 2 | Structured Defense Analysis → Defense Snapshot | Schnelle Version: Scannen, Beweislast einschätzen, einstufen, reagieren |
-| 3 | § 22 AGG Beweislast beibehalten | AUCH in der Kurzversion der entscheidende Schritt — Ampel (🟢🟡🔴) statt zweistufiger Vollanalyse |
-| 4 | A-E-Skala beibehalten | Herzstück — in der Einstufungstabelle sofort sichtbar |
-| 5 | 4-stufige Vergleichslogik beibehalten | AGG-spezifisch besonders relevant — kompakt in 1 Zeile |
-| 6 | Gegenargumente: Top 3 entfällt | Kurzversion gibt Reaktionsempfehlung, nicht Argumentenaufbau → AGG-Kompass |
-| 7 | Prävention entfällt | AGG-Kompass-Aufgabe (konditionaler Schritt) |
-| 8 | R2 „Keine Bagatellisierung" beibehalten | KERNREGEL — gerade in der Kurzversion entscheidend, damit schnelle Einschätzungen nicht verharmlosend ausfallen |
-| 9 | Sofortmaßnahmen IMMER (auch bei Stufe A) | Bei AGG-Fällen: Dokumentation sichern ist Pflicht, unabhängig von der Risikoeinstufung |
-| 10 | 10-Felder-Template | Kompakt, mit Schlüsselfeldern (Dokumentation vorhanden? Fristbeginn? Serienpotenzial?) |
