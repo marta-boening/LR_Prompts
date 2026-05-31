@@ -273,8 +273,8 @@
       "name": "Umsetzungs-Radar",
       "file": "Umsetzungs-Radar_Prompt.md",
       "depth": "full",
-      "hint": "Change-Management: Organisationsänderung mit MBR umsetzen.",
-      "disambiguation": "Change-Umsetzung. vs Maßnahmen-Architekt: Radar=Change, Maßnahmen=Einzelmaßnahme.",
+      "hint": "Change-Umsetzung wenn Entscheidung bereits gefallen. NICHT für Ersteinschätzung.",
+      "disambiguation": "Change-Umsetzung. vs AR-Lotse: Radar=konkrete Umsetzung (Entscheidung getroffen), AR=Erstanalyse. vs Maßnahmen-Architekt: Radar=Change, Maßnahmen=Einzelmaßnahme.",
       "related": [
         "massnahmen-architekt",
         "lr-stratege"
