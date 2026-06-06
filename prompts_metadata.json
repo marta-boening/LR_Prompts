@@ -70,7 +70,7 @@
     {
       "id": "br-kompass",
       "name": "BR-Kompass v2",
-      "file": "BR-Kompass_Prompt.md",
+      "file": "BR-Kompass_v2_Prompt.md",
       "depth": "full",
       "hint": "Mitbestimmungsanalyse mit ReAct-Methode. Tiefere Prüfung + Strategie.",
       "disambiguation": "Mitbestimmung tiefer. vs BR-Check: Kompass=ReAct, Check=schnell.",
@@ -83,7 +83,7 @@
     {
       "id": "br-konter-check",
       "name": "BR-Konter Check v1.1",
-      "file": "BR-Konter-Check_Prompt.md",
+      "file": "BR-Konter-Check_v1.1_Prompt.md",
       "depth": "quick",
       "hint": "Ersteinschätzung bei BR-Widerspruch §99 BetrVG. Was tun?",
       "disambiguation": "BR-Widerspruch schnell. vs BR-Konter: Check=Was tun, Konter=Strategie.",
@@ -93,7 +93,7 @@
     },
     {
       "id": "br-konter",
-      "name": "BR-Konter v1.1",
+      "name": "BR-Konter",
       "file": "BR-Konter_Prompt.md",
       "depth": "full",
       "hint": "Vollstrategie bei BR-Widerspruch §99 BetrVG. Durchsetzen/umgehen.",
@@ -223,7 +223,7 @@
       ]
     },
     {
-      "id": "pilot-check",
+      "id": "Einigungsstellen-pilot-check",
       "name": "Einigungsstellen-Pilot-Check",
       "file": "Einigungsstellen-Pilot-Check_Prompt.md",
       "depth": "quick",
