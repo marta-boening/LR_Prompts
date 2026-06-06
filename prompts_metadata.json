@@ -57,9 +57,9 @@
       ]
     },
     {
-      "id": "br-check-quick",
-      "name": "BR-Check Quick",
-      "file": "BR-Check-Quick_Prompt.md",
+      "id": "br-check",
+      "name": "BR-Check",
+      "file": "BR-Check_Prompt.md",
       "depth": "quick",
       "hint": "Schneller Mitbestimmungs-Check §87/91/95/99 BetrVG. Ja/Nein.",
       "disambiguation": "Mitbestimmung schnell. vs BR-Kompass: Check=schnell, Kompass=tiefer.",
