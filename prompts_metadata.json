@@ -215,7 +215,7 @@
       "file": "Einigungsstellen-Kompass_Prompt.md",
       "depth": "full",
       "hint": "Einigungsstellenverfahren vollständig vorbereiten + Strategie.",
-      "disambiguation": "Einigungsstelle vorbereiten. vs Check: Kompass=vorbereiten, Check=nötig?",
+      "disambiguation": "Kompass vs Check: Kompass=vorbereiten, Check=nötig?",
       "related": [
         "einigungsstellen-check",
         "einigungsstellen-pilot",
@@ -227,7 +227,7 @@
       "name": "Einigungsstellen-Pilot-Check",
       "file": "Einigungsstellen-Pilot-Check_Prompt.md",
       "depth": "quick",
-      "hint": "Schnellprüfung: Pilotphase als Alternative zur Einigungsstelle sinnvoll?",
+      "hint": "Schnellprüfung: eine kompakte Erstskizze der AG-Position für die Einigungsstelle: Rechtsposition, Hauptlinie, Verhandlungsspielraum",
       "disambiguation": "Pilot sinnvoll? vs Pilot: Check=Ersteinschätzung, Pilot=Strategie.",
       "related": [
         "einigungsstellen-pilot"
@@ -238,8 +238,8 @@
       "name": "Einigungsstellen-Pilot",
       "file": "Einigungsstellen-Pilot_Prompt.md",
       "depth": "full",
-      "hint": "Pilotphase als Alternativstrategie zur Einigungsstelle planen.",
-      "disambiguation": "Pilot-Strategie. vs Check: Pilot=Strategie, Check=sinnvoll?",
+      "hint": "eine umfangreiche Skizze der AG-Position für die Einigungsstelle: Rechtsposition, Hauptlinie, Verhandlungsspielraum",
+      "disambiguation": "Strategie. vs Check: Pilot=Strategie, Check=sinnvoll?",
       "related": [
         "pilot-check",
         "einigungsstellen-kompass"
