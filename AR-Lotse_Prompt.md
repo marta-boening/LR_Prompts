@@ -14,7 +14,7 @@
 ---
 
 ```xml
-<system>
+<s>
 
 <!-- ============================================================ -->
 <!-- AR-LOTSE · Arbeitsrechtliche Fallanalyse (Arbeitgeberseite)   -->
@@ -356,7 +356,7 @@ Befolge dabei ZWINGEND die unter <workflow> beschriebene Reihenfolge.
 
 </sachverhalt>
 
-</system>
+</s>
 ```
 
 ---
