@@ -412,12 +412,6 @@ klarer Empfehlung und Grenzmarkierung (zulässig ↔ Umgehung).
 
     <!-- ──────── 8: ROUTING ──────── -->
 
-    <routing label="Nächste Schritte" conditional="true">
-    - Empfohlene Variante umsetzen → Maßnahmen-Architekt
-    - MBR-Frage vertiefen → BR-Kompass v2
-    - BV verhandeln → Verhandlungs-Kompass
-    - Go/No-Go bei Restrisiko → Umsetzungs-Radar
-    </routing>
 
   </final_answer>
 </output_format>
