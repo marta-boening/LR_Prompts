@@ -360,15 +360,6 @@ Beende die ReAct-Analyse mit folgendem Block:
 
     <!-- ──────── 8: ROUTING ──────── -->
 
-    <routing label="Vertiefungsbedarf" conditional="true">
-    Falls Teile des Falls eine tiefere Spezialprüfung erfordern:
-    - Reine MBR-Einordnung vertiefen → BR-Kompass v2
-    - Vollständige juristische Analyse mit Literatur → AR-Lotse v3
-    - BV-Verhandlung konkret vorbereiten → Verhandlungs-Kompass
-    - Maßnahme technisch umsetzen → Maßnahmen-Architekt
-    - Kündigung im Zusammenhang → Kündigungs-Prüfer
-    - Versetzung im Zusammenhang → Versetzungs-Navigator v2
-    </routing>
 
   </final_answer>
 </output_format>
